@@ -1,5 +1,7 @@
 const registrationNumber = () => {
     let regNum;
+    let validatedInput;
+    let listOfRegNum = [];
     //set the input value
     const setInput = inputValue => regNum = inputValue;
     //get the input value
@@ -15,13 +17,23 @@ const registrationNumber = () => {
     // validate the input value
     const setValidation = () => {
         if(setConvert() === "") return "Enter a registration number";
+        if(setConvert().length > 10) return "Registration number should be less that 10 charactors";
         if(!/CF|CL|CA|CK/.test(setConvert())) return "Only CF, CL, CA, CK Town indicators allowed";
+        if(/[~!@#$%^&*()+_"?><:]/.test(setConvert())) return "Invalid charator input";
+        return validatedInput = setConvert();
     }
     const getValidation = () => setValidation();
     //set a list of registration numbers
-    const setListOfRegNum = () => {
-        
+    const setListOfRegNum = item => {
+        if(validatedInput === setConvert()) {
+            if(item !== undefined) {
+                listOfRegNum.push(item);
+            }
+        }
+        return listOfRegNum
     }
+    //get the list registration numbers added
+    const getListOfRegNum = () => setListOfRegNum();
 
     return {
         setInput,
@@ -30,13 +42,18 @@ const registrationNumber = () => {
         getConvert,
         setValidation,
         getValidation,
-        setListOfRegNum
+        setListOfRegNum,
+        getListOfRegNum
     }
 }
 
 let test = registrationNumber();
 
-test.setInput("ca 785-358   1");
+test.setInput("ca 365-951");
+test.setListOfRegNum(test.getValidation())
 
-console.log(test.getInput())
-console.log(test.getConvert())
+test.setInput("cK 365-548");
+test.setListOfRegNum(test.getValidation())
+
+
+console.log(test.getListOfRegNum());
