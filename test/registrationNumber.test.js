@@ -84,9 +84,27 @@ describe("The registrationNumber function", () => {
             assert.deepEqual(registration.getListOfRegNum(), ['CA 986-684', 'CF 658-258']);
         })
     })
+    // set selected town
+    describe("set town", () => {
+        it("should return the selected town", () => {
+            let registration = registrationNumber();
+
+            registration.setTown("kuilsriver");
+
+            assert.equal(registration.getTown(), "kuilsriver")
+        })
+
+        it("should return 'malmesbury' if the selected town is 'malmesbury'", () => {
+            let registration = registrationNumber();
+
+            registration.setTown("malmesbury");
+
+            assert.equal(registration.getTown(), "malmesbury");
+        })
+    })
     // filter to get only registration numbers for that city
-    describe("set list of registration numbers", () => {
-        it("should return the list of all registration numbers added", () => {
+    describe("filter town registration number list", () => {
+        it("should return list of registration numbers for selected city", () => {
             let registration = registrationNumber();
             registration.setInput("CF 654-953");
             registration.setListOfRegNum(registration.setValidation())
@@ -96,17 +114,27 @@ describe("The registrationNumber function", () => {
             registration.setListOfRegNum(registration.setValidation())
             registration.setInput("CK 654-953");
             registration.setListOfRegNum(registration.setValidation())
-            assert.deepEqual(registration.getListOfRegNum(), ["CF 654-953", "CA 654-953", "CL 654-953", "CK 654-953"]);
+
+            registration.setTown("kuilsriver");
+
+            assert.deepEqual(registration.getFilterList(), ["CF 654-953"]);
         })
 
-        it("should return ['CA 986-684', 'CF 658-258'] if 'CA 986-684' and CF 658-258' have been added", () => {
+        it("should display list of registration numbers for selected city", () => {
             let registration = registrationNumber();
-            registration.setInput("CA 986-684");
+
+            registration.setInput("CA 158-458");
             registration.setListOfRegNum(registration.setValidation())
-            registration.setInput("CF 658-258");
+            registration.setInput("CA 235-953");
             registration.setListOfRegNum(registration.setValidation())
-            assert.deepEqual(registration.getListOfRegNum(), ['CA 986-684', 'CF 658-258']);
+            registration.setInput("CL 954-953");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CK 354-953");
+            registration.setListOfRegNum(registration.setValidation())
+
+            registration.setTown("cape town");
+
+            assert.deepEqual(registration.getFilterList(), ["CA 158-458", "CA 235-953"]);
         })
     })
-
 })
