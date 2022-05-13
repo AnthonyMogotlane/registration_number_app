@@ -41,23 +41,72 @@ describe("The registrationNumber function", () => {
             registration.setInput("CV 584-516");
             assert.equal(registration.getValidation(), "Only CF, CL, CA, CK Town indicators allowed");
         })
+
+        it("should return 'Registration number should be less that 10 charactors' if the input value is more than 10 charactors", () => {
+            let registration = registrationNumber();
+            registration.setInput("cf 58684-5877");
+            assert.equal(registration.getValidation(), "Registration number should be less that 10 charactors");
+        })
+
+        it("should return 'Invalid charator input' if input value includes non-alphanumeric charator except '-'", () => {
+            let registration = registrationNumber();
+            registration.setInput("ck 585:235");
+            assert.equal(registration.getValidation(), "Invalid charator input");
+        })
+
+        it("should return valid registration number if the input is a valid", () => {
+            let registration = registrationNumber();
+            registration.setInput("CL 954-623");
+            assert.equal(registration.getValidation(), "CL 954-623");
+        })
     })
     // set list of registration numbers
     describe("set list of registration numbers", () => {
         it("should return the list of all registration numbers added", () => {
             let registration = registrationNumber();
             registration.setInput("CF 654-953");
+            registration.setListOfRegNum(registration.setValidation())
             registration.setInput("CA 654-953");
+            registration.setListOfRegNum(registration.setValidation())
             registration.setInput("CL 654-953");
-            registration.setInput("CJ 654-953");
-            assert.equal(registration.getListOfRegNum(), "Enter a registration number");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CK 654-953");
+            registration.setListOfRegNum(registration.setValidation())
+            assert.deepEqual(registration.getListOfRegNum(), ["CF 654-953", "CA 654-953", "CL 654-953", "CK 654-953"]);
         })
 
         it("should return ['CA 986-684', 'CF 658-258'] if 'CA 986-684' and CF 658-258' have been added", () => {
             let registration = registrationNumber();
             registration.setInput("CA 986-684");
+            registration.setListOfRegNum(registration.setValidation())
             registration.setInput("CF 658-258");
-            assert.equal(registration.getListOfRegNum(), ['CA 986-684', 'CF 658-258']);
+            registration.setListOfRegNum(registration.setValidation())
+            assert.deepEqual(registration.getListOfRegNum(), ['CA 986-684', 'CF 658-258']);
         })
     })
+    // filter to get only registration numbers for that city
+    describe("set list of registration numbers", () => {
+        it("should return the list of all registration numbers added", () => {
+            let registration = registrationNumber();
+            registration.setInput("CF 654-953");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CA 654-953");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CL 654-953");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CK 654-953");
+            registration.setListOfRegNum(registration.setValidation())
+            assert.deepEqual(registration.getListOfRegNum(), ["CF 654-953", "CA 654-953", "CL 654-953", "CK 654-953"]);
+        })
+
+        it("should return ['CA 986-684', 'CF 658-258'] if 'CA 986-684' and CF 658-258' have been added", () => {
+            let registration = registrationNumber();
+            registration.setInput("CA 986-684");
+            registration.setListOfRegNum(registration.setValidation())
+            registration.setInput("CF 658-258");
+            registration.setListOfRegNum(registration.setValidation())
+            assert.deepEqual(registration.getListOfRegNum(), ['CA 986-684', 'CF 658-258']);
+        })
+    })
+
 })
