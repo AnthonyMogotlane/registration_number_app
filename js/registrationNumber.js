@@ -20,18 +20,16 @@ const registrationNumber = () => {
         if (setConvert() === "") return "Enter a registration number";
         if (setConvert().length > 10) return "Registration number should be less that 10 charactors";
         if (!/CF|CL|CA|CK/.test(setConvert())) return "Only CF, CL, CA, CK Town indicators allowed";
-        if (/[~!@#$%^&*()+_"?><:]/.test(setConvert())) return "Invalid charator input";
+        if (/[~!@#$%^&*()+_"?><:]/.test(setConvert())) return "Invalid character input";
         return validatedInput = setConvert();
     }
     const getValidation = () => setValidation();
     //set a list of registration numbers
     const setListOfRegNum = item => {
         if (validatedInput === setConvert()) {
-            if (item !== undefined) {
-                listOfRegNum.push(item);
-            }
+            if (item !== undefined) listOfRegNum.push(item);
         }
-        return listOfRegNum
+        return listOfRegNum;
     }
     //get the list registration numbers added
     const getListOfRegNum = () => setListOfRegNum();
@@ -48,9 +46,7 @@ const registrationNumber = () => {
     }
     const setFilterList = () => {
         for(let town in towns) {
-            if(town === getTown()) {
-                return (getListOfRegNum().filter(num => num.includes(towns[town])))
-            }
+            if(town === getTown()) return (getListOfRegNum().filter(num => num.includes(towns[town])))
         }
     }
     //get the filter list
@@ -85,4 +81,4 @@ registration.setListOfRegNum(registration.setValidation())
 registration.setTown("kuilsriver");
 
 console.log(registration.getTown());
-console.log(registration.setFilterList());
+console.log(registration.getFilterList());
