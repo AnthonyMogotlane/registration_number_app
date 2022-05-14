@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration number app</title>
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- simple-grid css -->
+    <link rel="stylesheet" href="css/simple-grid.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12-sm header-content flex column justify-center align-center">
+                <h2>Number Plate Registry</h2>
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 content flex column justify-center align-center">
+                <div class="input-field-one flex">
+                    <input type="text" name="" id="reg-num-input" class="reg-num-one" placeholder="Registration number">
+                    <button class="add-btn">ADD</button>
+                </div>
+                <div class="">
+                    <select name="towns" id="towns">
+                        <option value="all">Select Town</option>
+                        <option value="malmesbury">Malmesbury</option>
+                        <option value="stellenbosch">Stellenbosch</option>
+                        <option value="cape town">Cape Town</option>
+                        <option value="kuilsriver">Kuilsriver</option>
+                    </select>
+                </div>
+                <div class="number-container">
+                    <ul class="number-plates">
+                       
+                    </ul>
+                </div>
+                <div>
+                    <button class="clear-btn">Clear List</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/registrationNumber.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/registration_number.js"></script>
+</body>
+
+</html>
