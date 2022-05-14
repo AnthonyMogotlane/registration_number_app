@@ -44,13 +44,13 @@ const registrationNumber = () => {
         "cape town": "CA",
         "kuilsriver": "CF",
     }
-    const setFilterList = () => {
+    const setFilterList = arr => {
         for(let town in towns) {
-            if(town === getTown()) return (getListOfRegNum().filter(num => num.includes(towns[town])))
+            if(town === getTown()) return (arr.filter(num => num.includes(towns[town])))
         }
     }
     //get the filter list
-    const getFilterList = () => setFilterList();
+    const getFilterList = list => setFilterList(list);
 
     return {
         setInput,
@@ -64,21 +64,22 @@ const registrationNumber = () => {
         setTown,
         getTown,
         setFilterList,
-        getFilterList
+        getFilterList,
+        listOfRegNum
     }
 }
 
-let registration = registrationNumber();
-registration.setInput("CF 654-953");
-registration.setListOfRegNum(registration.setValidation())
-registration.setInput("CA 654-953");
-registration.setListOfRegNum(registration.setValidation())
-registration.setInput("CL 654-953");
-registration.setListOfRegNum(registration.setValidation())
-registration.setInput("CK 654-953");
-registration.setListOfRegNum(registration.setValidation())
+// let registration = registrationNumber();
+// registration.setInput("CF 654-953");
+// registration.setListOfRegNum(registration.setValidation())
+// registration.setInput("CA 654-953");
+// registration.setListOfRegNum(registration.setValidation())
+// registration.setInput("CL 654-953");
+// registration.setListOfRegNum(registration.setValidation())
+// registration.setInput("CK 654-953");
+// registration.setListOfRegNum(registration.setValidation())
 
-registration.setTown("kuilsriver");
+// registration.setTown("kuilsriver");
 
-console.log(registration.getTown());
-console.log(registration.getFilterList());
+// console.log(registration.getTown());
+// console.log(registration.getFilterList());
