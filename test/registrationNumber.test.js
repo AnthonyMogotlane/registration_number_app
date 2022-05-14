@@ -51,7 +51,7 @@ describe("The registrationNumber function", () => {
         it("should return 'Invalid charator input' if input value includes non-alphanumeric charator except '-'", () => {
             let registration = registrationNumber();
             registration.setInput("ck 585:235");
-            assert.equal(registration.getValidation(), "Invalid charator input");
+            assert.equal(registration.getValidation(), "Invalid character input");
         })
 
         it("should return valid registration number if the input is a valid", () => {
