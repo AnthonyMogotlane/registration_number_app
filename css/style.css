@@ -69,7 +69,6 @@ body {
     border: none;
 }
 
-
 .content {
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
     padding: 1em 0;
@@ -78,6 +77,10 @@ body {
 .number-plates {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    background: red;
+}
+.number-plates-two {
+    grid-template-columns: 1fr;
 }
 
 li {

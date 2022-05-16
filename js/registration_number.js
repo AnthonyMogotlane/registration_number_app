@@ -75,6 +75,9 @@ addBtn.addEventListener("click", () => {
     //clear input
     regNumInput.value = "";
 
+    //remove class
+    plateList.classList.remove("number-plates-two");
+
 })
 //show registration numbers stored in local storage
 listOfNumberPlates = data.getData("registrationNumbers");
@@ -83,7 +86,7 @@ if (listOfNumberPlates !== null) {
 }
 
 //msg when the is no data
-let noData = "<li style='color: yellow; background: #444; width:100%; text-align: center; font-weight: 500;padding: 5px'>No Data! exist to display</li>";
+let noData = "<p style='color: yellow; background: #444; text-align: center; font-weight: 500;padding: 5px'>No Data! exist to display</p>";
 
 //dropdown event listener
 dropdown.addEventListener("change", () => {
@@ -102,7 +105,7 @@ dropdown.addEventListener("change", () => {
 //clear list event listener
 if (plateList.innerHTML.length == 0) {
     clearBtn.style.display = "none";
-    // plateList.style.gridTemplateColumns = "1fr";
+    plateList.classList.add("number-plates-two");
     plateList.innerHTML = noData; 
 }
 
@@ -110,6 +113,9 @@ clearBtn.addEventListener("click", () => {
     plateList.innerHTML = noData;
     clearBtn.style.display = "none";
     localStorage.clear();
+
+    //add class
+    plateList.classList.add("number-plates-two");
 })
 
 //guide close btn
