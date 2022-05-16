@@ -55,7 +55,7 @@ addBtn.addEventListener("click", () => {
             listOfNumberPlates = registry.getListOfRegNum();
         } else {
             console.log(data.getData("registrationNumbers"), registry.getInput())
-            if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getInput())) {
+            if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getValidation())) {
                 registry.listOfRegNum.unshift(...data.getData("registrationNumbers"));
             }
             listOfNumberPlates = registry.getListOfRegNum();
