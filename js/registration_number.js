@@ -59,7 +59,6 @@ addBtn.addEventListener("click", () => {
                 registry.listOfRegNum.unshift(...data.getData("registrationNumbers"));
             }
             listOfNumberPlates = registry.getListOfRegNum();
-          
         }
         //create registration number item
         createNumberPlate(listOfNumberPlates)
@@ -72,6 +71,9 @@ addBtn.addEventListener("click", () => {
     } else {
         alertMsg("error-msg", registry.getValidation());
     }
+
+    //clear input
+    regNumInput.value = "";
 
 })
 //show registration numbers stored in local storage
