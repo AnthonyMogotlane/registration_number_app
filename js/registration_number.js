@@ -6,6 +6,9 @@ const clearBtn = document.querySelector(".clear-btn");
 const dropdown = document.querySelector("#towns");
 const plateList = document.querySelector(".number-plates");
 const headerContent = document.querySelector(".header-content");
+const guideContaner = document.querySelector(".guide-container")
+const closeBtn = document.querySelector(".close-Btn");
+const item = document.querySelector(".plate");
 
 //instance of registrationNumber factory function
 let registry = registrationNumber();
@@ -47,14 +50,16 @@ addBtn.addEventListener("click", () => {
         plateList.innerHTML = "";
 
         //update registration number list with localStorage list
-        
+
         if (data.getData("registrationNumbers") === null) {
             listOfNumberPlates = registry.getListOfRegNum();
         } else {
-            if(registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getInput())) {
+            console.log(data.getData("registrationNumbers"), registry.getInput())
+            if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getInput())) {
                 registry.listOfRegNum.unshift(...data.getData("registrationNumbers"));
             }
-            listOfNumberPlates =registry.getListOfRegNum();           
+            listOfNumberPlates = registry.getListOfRegNum();
+          
         }
         //create registration number item
         createNumberPlate(listOfNumberPlates)
@@ -62,29 +67,61 @@ addBtn.addEventListener("click", () => {
         alertMsg("update-msg", "Registration Number Added");
         //store list to localStorage
         data.setData("registrationNumbers", listOfNumberPlates)
+        //show clear list button
+        clearBtn.style.display = "block";
     } else {
         alertMsg("error-msg", registry.getValidation());
     }
 
 })
-
+//show registration numbers stored in local storage
 listOfNumberPlates = data.getData("registrationNumbers");
-createNumberPlate(listOfNumberPlates);
+if (listOfNumberPlates !== null) {
+    createNumberPlate(listOfNumberPlates);
+}
+
+//msg when the is no data
+let noData = "<li style='color: yellow; background: #444; width:100%; text-align: center; font-weight: 500;padding: 5px'>No Data! exist to display</li>";
+
 //dropdown event listener
 dropdown.addEventListener("change", () => {
     registry.setTown(dropdown.options[dropdown.selectedIndex].value);
-    if(dropdown.options[dropdown.selectedIndex].value === "all") {
+    if (dropdown.options[dropdown.selectedIndex].value === "all") {
         createNumberPlate(listOfNumberPlates);
     } else {
-        createNumberPlate(registry.getFilterList(listOfNumberPlates));
+        if (data.getData("registrationNumbers") !== null) {
+            createNumberPlate(registry.getFilterList(listOfNumberPlates));
+        }
+        if(plateList.innerHTML.length == 0) plateList.innerHTML = noData;
     }
-    console.log(registry.getFilterList(listOfNumberPlates));
+    //console.log(registry.getFilterList(listOfNumberPlates));
 })
+
 //clear list event listener
+if (plateList.innerHTML.length == 0) {
+    clearBtn.style.display = "none";
+    // plateList.style.gridTemplateColumns = "1fr";
+    plateList.innerHTML = noData; 
+}
+
 clearBtn.addEventListener("click", () => {
-    plateList.innerHTML = "";
+    plateList.innerHTML = noData;
+    clearBtn.style.display = "none";
     localStorage.clear();
 })
+
+//guide close btn
+closeBtn.addEventListener("click", () => {
+    guideContaner.style.display = "none";
+   
+    data.setData("guide", "closed");
+})
+if (data.getData("guide") === null) {
+    guideContaner.style.display = "block";
+} else {
+    guideContaner.style.display = "none";
+}
+
 
 
 
