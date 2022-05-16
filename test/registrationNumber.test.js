@@ -45,7 +45,7 @@ describe("The registrationNumber function", () => {
         it("should return 'Registration number should be less that 10 charactors' if the input value is more than 10 charactors", () => {
             let registration = registrationNumber();
             registration.setInput("cf 58684-5877");
-            assert.equal(registration.getValidation(), "Registration number should be less that 10 charactors");
+            assert.equal(registration.getValidation(), "Registration number is lessthan 10 charactors");
         })
 
         it("should return 'Invalid charator input' if input value includes non-alphanumeric charator except '-'", () => {
@@ -115,12 +115,12 @@ describe("The registrationNumber function", () => {
             registration.setInput("CK 654-953");
             registration.setListOfRegNum(registration.setValidation())
 
-            registration.setTown("kuilsriver");
+            registration.setTown("kuilsriver")
 
-            assert.deepEqual(registration.getFilterList(), ["CF 654-953"]);
+            assert.deepEqual(registration.getFilterList(registration.getListOfRegNum()), ["CF 654-953"]);
         })
 
-        it("should display list of registration numbers for selected city", () => {
+        it("should return ['CA 158-458', 'CA 235-953'] for input 'CA 158-458', 'CA 235-953', 'CL 954-953',and 'CK 354-953' if the selected town is 'Cape Town'", () => {
             let registration = registrationNumber();
 
             registration.setInput("CA 158-458");
@@ -134,7 +134,7 @@ describe("The registrationNumber function", () => {
 
             registration.setTown("cape town");
 
-            assert.deepEqual(registration.getFilterList(), ["CA 158-458", "CA 235-953"]);
+            assert.deepEqual(registration.getFilterList(registration.getListOfRegNum()), ["CA 158-458", "CA 235-953"]);
         })
     })
 })

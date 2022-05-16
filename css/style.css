@@ -10,8 +10,9 @@
 }
 
 /* body style */
-
-/* background */
+body {
+    position: relative;
+}
 
 /* header */
 .header-content {
@@ -20,10 +21,14 @@
 
 .error-msg, .update-msg {
     position: absolute;
+    width: 100%;
+    height: 100%;
     background: #ff0000;
     padding: 5px;
     border-radius: .25em;
     font-weight: 500;
+    text-align: center;
+    overflow: hidden;
 }
 .update-msg {
     background: #008000;
@@ -51,6 +56,7 @@
     border-radius: .25em;
     text-transform: uppercase;
     margin-top: 1em;
+    transition: all .10s ease-in;
 }
 
 /* dropdown */
@@ -84,6 +90,34 @@ li {
     border: 2.5px solid #000;
     border-radius: .25em;
     margin: .5em;
+    font-weight: 700;
+}
+
+/* guide */
+.guide-container {
+    background: linear-gradient( rgba(255,0,0,0), rgb(10, 1, 1));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.guide {
+    border: #000 1px solid;
+    border-radius: .25em;
+    padding: 5px;
+    text-align: center;
+    background: #fff;
+    width: 25em;
+    margin-top: 8em;
+}
+
+.close-Btn {
+    background: yellow;
+    border: none;
+    border-radius: 2em;
+    padding: 5px;
     font-weight: 700;
 }
 
