@@ -18,16 +18,19 @@ const registrationNumber = () => {
     // validate the input value
     const setValidation = () => {
         if (setConvert() === "") return "Enter a registration number";
-        if (setConvert().length > 10) return "Registration number should be less that 10 charactors";
+        if (setConvert().length > 10) return "Registration number is lessthan 10 charactors";
         if (!/CF|CL|CA|CK/.test(setConvert())) return "Only CF, CL, CA, CK Town indicators allowed";
         if (/[~!@#$%^&*()+_"?><:]/.test(setConvert())) return "Invalid character input";
+        if (!(/\w{2}\s\d{3}-\d{3}|\w{2}\s\d{3}\d{3}|\w{2}\s\d{3}\s\d{3}/).test(setConvert())) return "Invalid Registratin Number";
         return validatedInput = setConvert();
     }
     const getValidation = () => setValidation();
     //set a list of registration numbers
     const setListOfRegNum = item => {
         if (validatedInput === setConvert()) {
-            if (item !== undefined) listOfRegNum.push(item);
+            if(!listOfRegNum.includes(validatedInput)) {
+                if (item !== undefined) listOfRegNum.push(item);
+            }
         }
         return listOfRegNum;
     }
@@ -68,18 +71,3 @@ const registrationNumber = () => {
         listOfRegNum
     }
 }
-
-// let registration = registrationNumber();
-// registration.setInput("CF 654-953");
-// registration.setListOfRegNum(registration.setValidation())
-// registration.setInput("CA 654-953");
-// registration.setListOfRegNum(registration.setValidation())
-// registration.setInput("CL 654-953");
-// registration.setListOfRegNum(registration.setValidation())
-// registration.setInput("CK 654-953");
-// registration.setListOfRegNum(registration.setValidation())
-
-// registration.setTown("kuilsriver");
-
-// console.log(registration.getTown());
-// console.log(registration.getFilterList());
