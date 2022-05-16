@@ -75,9 +75,6 @@ addBtn.addEventListener("click", () => {
     //clear input
     regNumInput.value = "";
 
-    //remove class
-    plateList.classList.remove("number-plates-two");
-
 })
 //show registration numbers stored in local storage
 listOfNumberPlates = data.getData("registrationNumbers");
@@ -105,7 +102,7 @@ dropdown.addEventListener("change", () => {
 //clear list event listener
 if (plateList.innerHTML.length == 0) {
     clearBtn.style.display = "none";
-    plateList.classList.add("number-plates-two");
+    // plateList.style.gridTemplateColumns = "1fr";
     plateList.innerHTML = noData; 
 }
 
@@ -113,9 +110,6 @@ clearBtn.addEventListener("click", () => {
     plateList.innerHTML = noData;
     clearBtn.style.display = "none";
     localStorage.clear();
-
-    //add class
-    plateList.classList.add("number-plates-two");
 })
 
 //guide close btn

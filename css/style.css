@@ -77,7 +77,6 @@ body {
 .number-plates {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background: red;
 }
 .number-plates-two {
     grid-template-columns: 1fr;
