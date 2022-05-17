@@ -92,6 +92,8 @@ dropdown.addEventListener("change", () => {
     registry.setTown(dropdown.options[dropdown.selectedIndex].value);
     if (dropdown.options[dropdown.selectedIndex].value === "all" && data.getData("registrationNumbers") !== null) {
         createNumberPlate(listOfNumberPlates);
+        //clear btn
+        clearBtn.style.display = "block";
     } else {
         if (data.getData("registrationNumbers") !== null) {
             createNumberPlate(registry.getFilterList(listOfNumberPlates));
@@ -136,7 +138,11 @@ closeBtn.addEventListener("click", () => {
     data.setData("guide", "closed");
 })
 
-(data.getData("guide") === null) ? guideContainer.style.display = "block": guideContainer.style.display = "none";
+if(data.getData("guide") === null) {
+    guideContainer.style.display = "block"
+ } else {
+     guideContainer.style.display = "none";
+ } 
 
 
 
