@@ -15,6 +15,7 @@ let registry = registrationNumber();
 //instance of storage function
 let data = storage();
 
+//list of registration numbers
 let listOfNumberPlates;
 
 //create number plate function
@@ -64,10 +65,10 @@ addBtn.addEventListener("click", () => {
         createNumberPlate(listOfNumberPlates)
 
         //popup msg to update user when new item is added or it does exist
-        if(data.getData("registrationNumbers") !== null && !data.getData("registrationNumbers").includes(registry.getValidation())) {
-            alertMsg("update-msg", "Registration Number Added");
-        } else {
+        if(data.getData("registrationNumbers") !== null && data.getData("registrationNumbers").includes(registry.getValidation())) {
             alertMsg("warn-msg", "Registration Number Exist!");
+        } else {
+            alertMsg("update-msg", "Registration Number Added");
         }
         //store list to localStorage
         data.setData("registrationNumbers", listOfNumberPlates)
@@ -93,7 +94,7 @@ let noData = "<p class='no-data'>No Data! exist to display</p>";
 //dropdown event listener
 dropdown.addEventListener("change", () => {
     registry.setTown(dropdown.options[dropdown.selectedIndex].value);
-    if (dropdown.options[dropdown.selectedIndex].value === "all") {
+    if (dropdown.options[dropdown.selectedIndex].value === "all" && data.getData("registrationNumbers") !== null) {
         createNumberPlate(listOfNumberPlates);
     } else {
         if (data.getData("registrationNumbers") !== null) {
