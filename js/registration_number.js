@@ -6,8 +6,8 @@ const clearBtn = document.querySelector(".clear-btn");
 const dropdown = document.querySelector("#towns");
 const plateList = document.querySelector(".number-plates");
 const headerContent = document.querySelector(".header-content");
-const guideContaner = document.querySelector(".guide-container")
-const closeBtn = document.querySelector(".close-Btn");
+const guideContainer = document.querySelector(".guide-container")
+const closeBtn = document.querySelector(".close-btn");
 const item = document.querySelector(".plate");
 
 //instance of registrationNumber factory function
@@ -32,7 +32,7 @@ const createNumberPlate = list => {
 //create alert message function
 const alertMsg = (theClass, theMsg) => {
     const p = document.createElement("p");
-    p.className = theClass;
+    p.className = `flex column justify-center align-center ${theClass}`;
     p.appendChild(document.createTextNode(theMsg));
     headerContent.appendChild(p);
     setTimeout(() => {
@@ -48,24 +48,22 @@ addBtn.addEventListener("click", () => {
     registry.setListOfRegNum(registry.getValidation());
 
     if (registry.setConvert() === registry.getValidation()) {
-        plateList.innerHTML = "";
-
-        //update registration number list with localStorage list
-
+        plateList.innerHTML = ""; 
+        //update registration numbers list with the localStorage list
         if (data.getData("registrationNumbers") === null) {
             listOfNumberPlates = registry.getListOfRegNum();
         } else {
             console.log(data.getData("registrationNumbers"), registry.getInput())
             if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getValidation())) {
-                registry.listOfRegNum.unshift(...data.getData("registrationNumbers"));
+                registry.getListOfRegNumVar.unshift(...data.getData("registrationNumbers"));
             }
             listOfNumberPlates = registry.getListOfRegNum();
         }
         //create registration number item
         createNumberPlate(listOfNumberPlates)
 
-        //popup msg to update user when new item is added or it does exist
-        if(data.getData("registrationNumbers") !== null && data.getData("registrationNumbers").includes(registry.getValidation())) {
+        //popup msg to update user when new item is added or it exist
+        if (data.getData("registrationNumbers") !== null && data.getData("registrationNumbers").includes(registry.getValidation())) {
             alertMsg("warn-msg", "Registration Number Exist!");
         } else {
             alertMsg("update-msg", "Registration Number Added");
@@ -80,15 +78,13 @@ addBtn.addEventListener("click", () => {
 
     //clear input
     regNumInput.value = "";
-
 })
-//show registration numbers stored in local storage
-listOfNumberPlates = data.getData("registrationNumbers");
-if (listOfNumberPlates !== null) {
-    createNumberPlate(listOfNumberPlates);
-}
 
-//msg when the is no data
+//display registration numbers stored in local storage
+listOfNumberPlates = data.getData("registrationNumbers");
+if (listOfNumberPlates !== null) createNumberPlate(listOfNumberPlates);
+
+//msg to be displayed when the is no data/registration numbers
 let noData = "<p class='no-data'>No Data! exist to display</p>";
 
 //dropdown event listener
@@ -102,43 +98,45 @@ dropdown.addEventListener("change", () => {
             //clear btn
             clearBtn.style.display = "block";
         }
-        if(plateList.innerHTML.length == 0) {
+        if (plateList.innerHTML.length == 0) {
             plateList.innerHTML = `<p class='no-data'>No Data! for ${dropdown.options[dropdown.selectedIndex].value}</p>`;
             //clear btn
             clearBtn.style.display = "none";
-        } 
+        }
         dropdown.options[dropdown.selectedIndex].value;
     }
-    //console.log(registry.getFilterList(listOfNumberPlates));
 })
 
-//clear list event listener
+//hide clear list button & show msg
 if (plateList.innerHTML.length == 0) {
     clearBtn.style.display = "none";
-    // plateList.style.gridTemplateColumns = "1fr";
-    plateList.innerHTML = noData; 
+    plateList.innerHTML = noData;
 }
 
+//clear list event listener
 clearBtn.addEventListener("click", () => {
-    while(plateList.hasChildNodes()) {
+    //clear if the is something in the list
+    while (plateList.hasChildNodes()) {
         plateList.removeChild(plateList.firstChild)
     }
-    plateList.innerHTML = noData;
-    clearBtn.style.display = "none";
+    //clear list in the program
+    listOfNumberPlates = [];
+    //clear localStorage
     localStorage.clear();
+    //remove clear button
+    clearBtn.style.display = "none";
+    //Display msg when list is empty
+    plateList.innerHTML = noData;
 })
 
-//guide close btn
+//close btn for the guide
 closeBtn.addEventListener("click", () => {
-    guideContaner.style.display = "none";
-   
+    guideContainer.style.display = "none";
+    //store state of the guide
     data.setData("guide", "closed");
 })
-if (data.getData("guide") === null) {
-    guideContaner.style.display = "block";
-} else {
-    guideContaner.style.display = "none";
-}
+
+(data.getData("guide") === null) ? guideContainer.style.display = "block": guideContainer.style.display = "none";
 
 
 
