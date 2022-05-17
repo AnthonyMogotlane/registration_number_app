@@ -55,7 +55,7 @@ addBtn.addEventListener("click", () => {
         } else {
             console.log(data.getData("registrationNumbers"), registry.getInput())
             if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getValidation())) {
-                registry.getListOfRegNumVar.unshift(...data.getData("registrationNumbers"));
+                registry.getListOfRegNumVar().unshift(...data.getData("registrationNumbers"));
             }
             listOfNumberPlates = registry.getListOfRegNum();
         }
@@ -141,7 +141,7 @@ closeBtn.addEventListener("click", () => {
 if(data.getData("guide") === null) {
     guideContainer.style.display = "block"
  } else {
-     guideContainer.style.display = "none";
+    guideContainer.style.display = "none";
  } 
 
 
