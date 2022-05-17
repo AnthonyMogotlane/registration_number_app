@@ -24,7 +24,7 @@ const createNumberPlate = list => {
         const li = document.createElement("li");
         li.className = "plate flex column justify-center align-center";
         li.appendChild(document.createTextNode(plateItem));
-        plateList.appendChild(li);
+        plateList.insertBefore(li, plateList.children[0]);
     }
 }
 
@@ -63,7 +63,12 @@ addBtn.addEventListener("click", () => {
         //create registration number item
         createNumberPlate(listOfNumberPlates)
 
-        alertMsg("update-msg", "Registration Number Added");
+        //popup msg to update user when new item is added or it does exist
+        if(data.getData("registrationNumbers") !== null && !data.getData("registrationNumbers").includes(registry.getValidation())) {
+            alertMsg("update-msg", "Registration Number Added");
+        } else {
+            alertMsg("warn-msg", "Registration Number Exist!");
+        }
         //store list to localStorage
         data.setData("registrationNumbers", listOfNumberPlates)
         //show clear list button
@@ -83,7 +88,7 @@ if (listOfNumberPlates !== null) {
 }
 
 //msg when the is no data
-let noData = "<p style='color: yellow; background: #444; text-align: center; font-weight: 500;padding: 5px'>No Data! exist to display</p>";
+let noData = "<p class='no-data'>No Data! exist to display</p>";
 
 //dropdown event listener
 dropdown.addEventListener("change", () => {
@@ -93,8 +98,15 @@ dropdown.addEventListener("change", () => {
     } else {
         if (data.getData("registrationNumbers") !== null) {
             createNumberPlate(registry.getFilterList(listOfNumberPlates));
+            //clear btn
+            clearBtn.style.display = "block";
         }
-        if(plateList.innerHTML.length == 0) plateList.innerHTML = noData;
+        if(plateList.innerHTML.length == 0) {
+            plateList.innerHTML = `<p class='no-data'>No Data! for ${dropdown.options[dropdown.selectedIndex].value}</p>`;
+            //clear btn
+            clearBtn.style.display = "none";
+        } 
+        dropdown.options[dropdown.selectedIndex].value;
     }
     //console.log(registry.getFilterList(listOfNumberPlates));
 })
@@ -107,6 +119,9 @@ if (plateList.innerHTML.length == 0) {
 }
 
 clearBtn.addEventListener("click", () => {
+    while(plateList.hasChildNodes()) {
+        plateList.removeChild(plateList.firstChild)
+    }
     plateList.innerHTML = noData;
     clearBtn.style.display = "none";
     localStorage.clear();
