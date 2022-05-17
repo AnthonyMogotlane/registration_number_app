@@ -78,6 +78,8 @@ addBtn.addEventListener("click", () => {
 
     //clear input
     regNumInput.value = "";
+    //reset drop down selection
+    dropdown.selectedIndex = 0;
 })
 
 //display registration numbers stored in local storage
