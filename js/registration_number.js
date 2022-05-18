@@ -48,7 +48,7 @@ addBtn.addEventListener("click", () => {
     registry.setListOfRegNum(registry.getValidation());
 
     if (registry.setConvert() === registry.getValidation()) {
-        plateList.innerHTML = ""; 
+        plateList.innerHTML = "";
         //update registration numbers list with the localStorage list
         if (data.getData("registrationNumbers") === null) {
             listOfNumberPlates = registry.getListOfRegNum();
@@ -80,6 +80,7 @@ addBtn.addEventListener("click", () => {
     regNumInput.value = "";
     //reset drop down selection
     dropdown.selectedIndex = 0;
+   
 })
 
 //display registration numbers stored in local storage
@@ -123,14 +124,14 @@ clearBtn.addEventListener("click", () => {
     while (plateList.hasChildNodes()) {
         plateList.removeChild(plateList.firstChild)
     }
-    //clear list in the program
-    listOfNumberPlates = [];
     //clear localStorage
     localStorage.clear();
     //remove clear button
     clearBtn.style.display = "none";
     //Display msg when list is empty
     plateList.innerHTML = noData;
+     //clear list in the program
+     listOfNumberPlates = [];
 })
 
 //close btn for the guide
@@ -140,11 +141,23 @@ closeBtn.addEventListener("click", () => {
     data.setData("guide", "closed");
 })
 
-if(data.getData("guide") === null) {
-    guideContainer.style.display = "block"
- } else {
+guideContainer.style.display = "none"
+if (data.getData("guide") === null) {
+    setTimeout(() => { guideContainer.style.display = "block" }, 1500)
+} else {
     guideContainer.style.display = "none";
- } 
+}
+
+const removeItem = (e) => {
+    if (confirm("Are you sure! you want to delete the registration number?")) {
+        if (e.target.classList.contains("plate")) {
+            e.target.remove();
+        }
+    }
+}
+plateList.addEventListener("dblclick", removeItem);
+
+
 
 
 
