@@ -72,6 +72,8 @@ const registrationNumber = () => {
         getTown,
         setFilterList,
         getFilterList,
-        getListOfRegNumVar
+        setListOfRegNumVar,
+        getListOfRegNumVar,
+        listOfRegNum
     }
 }
