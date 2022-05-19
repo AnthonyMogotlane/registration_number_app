@@ -58,6 +58,16 @@ const registrationNumber = () => {
     }
     //get the filter list
     const getFilterList = list => setFilterList(list);
+    //reset list 
+    const setResetList = () => {
+        while(listOfRegNum.length !== 0) {
+            listOfRegNum.pop();
+        }
+        return listOfRegNum;
+    };
+    const getResetList = () => {
+        setResetList();
+    }
 
     return {
         setInput,
@@ -74,6 +84,8 @@ const registrationNumber = () => {
         getFilterList,
         setListOfRegNumVar,
         getListOfRegNumVar,
+        setResetList,
+        getResetList,
         listOfRegNum
     }
 }
