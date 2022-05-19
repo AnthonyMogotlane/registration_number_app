@@ -55,7 +55,7 @@ addBtn.addEventListener("click", () => {
         } else {
             console.log(data.getData("registrationNumbers"), registry.getInput())
             if (registry.getListOfRegNum().length === 1 && !data.getData("registrationNumbers").includes(registry.getValidation())) {
-                registry.listOfRegNum.unshift(...data.getData("registrationNumbers"));
+                registry.getListOfRegNumVar().unshift(...data.getData("registrationNumbers"));
             }
             listOfNumberPlates = registry.getListOfRegNum();
         }
@@ -130,8 +130,10 @@ clearBtn.addEventListener("click", () => {
     clearBtn.style.display = "none";
     //Display msg when list is empty
     plateList.innerHTML = noData;
-     //clear list in the program
-     listOfNumberPlates = [];
+    //clear list in the program
+    listOfNumberPlates = registry.getResetList();
+    //reload to clear registration number list in program
+    //location.reload();
 })
 
 //close btn for the guide
