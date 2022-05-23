@@ -3,6 +3,13 @@ const inputField = document.querySelector(".reg-num-two");
 const addBtnTwo = document.querySelector(".add-btn-two");
 const dropdownTwo = document.querySelector("#cities");
 const clearBtnTwo = document.querySelector(".clear-btn-two");
+const guideContainerTwo = document.querySelector(".guide-container-two");
+const closeBtnTwo = document.querySelector(".close-btn-two");
+
+
+const numberPlateTemplate = document.querySelector(".number-plates-template");
+const clearBtnContainer = document.querySelector(".clear-btn-container");
+
 
 //instance of registrationNumber factory function
 let theRegistry = registrationNumber();
@@ -24,14 +31,20 @@ addBtnTwo.addEventListener("click", () => {
     let popupMsg = { message: theMessage, theMsg: theClass };
     document.querySelector(".header-content-two").innerHTML = popupTemplateFunction(popupMsg);
     setTimeout(() => {document.querySelector(".header-content-two").innerHTML = "<h2 class='app-title'>Number Plate Registry</h2>"}, 1500);
+    theClearButtonTemplate();
   };
 
   if (theRegistry.getConvert() === theRegistry.getValidation()) {
     HandlebarsTemplate(theRegistry.getListOfRegNum());
-    theStorage.setData("registry", theRegistry.getListOfRegNum());
 
-    popupMsgTemplate("Registration number added", "update-msg");
-    //popupMsgTemplate("Registration number exist", "warn-msg");
+    if(theStorage.getData("registry") !== null && theStorage.getData("registry").includes(theRegistry.getValidation())) {
+      popupMsgTemplate("Registration number exist", "warn-msg");
+    } else {
+      popupMsgTemplate("Registration number added", "update-msg");
+    }
+
+    //update the localStorage with the input registration number
+    theStorage.setData("registry", theRegistry.getListOfRegNum());
   } else {
     popupMsgTemplate(theRegistry.getValidation(), "error-msg");
   }
@@ -52,7 +65,7 @@ function HandlebarsTemplate(theNumberPlates) {
     numberPlate: theNumberPlates,
   };
 
-  document.querySelector(".number-plates-template").innerHTML = templateFunction(licensePlate);
+  numberPlateTemplate.innerHTML = templateFunction(licensePlate);
 }
 
 //display data from localStorage
@@ -65,15 +78,44 @@ dropdownTwo.addEventListener("change", () => {
   theRegistry.setTown(selectedOption);
   if (selectedOption === "all") {
     HandlebarsTemplate(theRegistry.getListOfRegNumVar());
+    theClearButtonTemplate();
   } else {
     HandlebarsTemplate(
       theRegistry.getFilterList(theRegistry.getListOfRegNumVar())
     );
+    theClearButtonTemplate();
   }
 });
 
+//clear button template
+function theClearButtonTemplate() {
+  let clearBtnTemplate = document.querySelector(".clear-btn-content").innerHTML;
+  let clearBtnTemplateFunction = Handlebars.compile(clearBtnTemplate);
+  let clearButton = {
+    button: "Clear List",
+    condition: numberPlateTemplate.textContent.trim() !== "No Data! exist to display"
+  }
+  clearBtnContainer.innerHTML = clearBtnTemplateFunction(clearButton);
+}
+theClearButtonTemplate();
+
 //clear registration numbers
-clearBtnTwo.addEventListener("click", () => {
-  HandlebarsTemplate(theRegistry.getResetList());
-  localStorage.clear();
+clearBtnContainer.addEventListener("click", () => {
+    HandlebarsTemplate(theRegistry.getResetList());
+    localStorage.clear();
+    theClearButtonTemplate();
 });
+
+//close btn for the guide
+closeBtnTwo.addEventListener("click", () => {
+  guideContainerTwo.style.display = "none";
+  //store state of the guide
+  data.setData("guideTwo", "closed");
+})
+
+guideContainerTwo.style.display = "none"
+if (data.getData("guideTwo") === null) {
+  setTimeout(() => { guideContainerTwo.style.display = "block" }, 1500)
+} else {
+  guideContainerTwo.style.display = "none";
+}
