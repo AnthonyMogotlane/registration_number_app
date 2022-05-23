@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>registration number app</title>
-  <!-- custom css -->
-  <link rel="stylesheet" href="css/style.css" />
-  <!-- simple-grid css -->
-  <link rel="stylesheet" href="css/simple-grid.css" />
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>registration number app</title>
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- simple-grid css -->
+    <link rel="stylesheet" href="css/simple-grid.css" />
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 
 <body>
@@ -115,9 +116,10 @@
             <div class="number-container-two">
               <ul class="number-plates-template"></ul>
             </div>
-            <div>
-              <button class="clear-btn-two">Clear List</button>
+            <!-- clear button container -->
+            <div class="clear-btn-container">
             </div>
+           
           </div>
         </div>
       </div>
@@ -154,11 +156,17 @@
   <script type="text/x-handlebars-template" class="number-plates-content">
       {{#each numberPlate}}
         <li class="plate flex column justify-center align-center">{{this}}</li>
-      {{else}}
+        {{else}}
         <p class="no-data">No Data! exist to display</p>
       {{/each}}
     </script>
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+  <script type="text/x-handlebars-template" class="clear-btn-content">
+    {{#if condition}}
+    <button class="clear-btn-two">{{button}}</button>
+    {{/if}}
+  </script>
+  
   <script src="js/registrationNumber.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/registration_number.js"></script>
