@@ -21,7 +21,7 @@ body {
 }
 
 .widget-two {
-  /* position: relative; */
+  position: relative;
   height: 100vh;
   background: #fda;
 }
@@ -129,10 +129,10 @@ body {
   padding: 10 px 5px;
 }
 
-.number-plates-container,
-.number-plates-container-two {
+.number-plates-container {
   position: relative;
 }
+
 
 .number-plates,
 .number-plates-template {
@@ -176,7 +176,7 @@ li {
 }
 
 /* guide */
-.guide-container {
+.guide-container, .guide-container-two{
   background: linear-gradient(rgba(255, 0, 0, 0), rgb(10, 1, 1));
   position: absolute;
   top: 0;
@@ -185,7 +185,7 @@ li {
   height: 100%;
 }
 
-.guide {
+.guide, .guide-two {
   border: #000 1px solid;
   border-radius: 0.25em;
   padding: 5px;
@@ -194,8 +194,11 @@ li {
   width: 25em;
   margin-top: 8em;
 }
+.guide-two {
+  background: #fda;
+}
 
-.close-btn {
+.close-btn, .close-btn-two {
   background: #ff0000;
   color: #fff;
   letter-spacing: 1px;
