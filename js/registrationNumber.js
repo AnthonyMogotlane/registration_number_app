@@ -25,7 +25,7 @@ const registrationNumber = () => {
         if (setConvert().length > 10) return "Registration number is lessthan 10 charactors";
         if (!/CF|CL|CA|CK/.test(setConvert())) return "Only CF, CL, CA, CK Town indicators allowed";
         if (/[~!@#$%^&*()+_"?><:]/.test(setConvert())) return "Invalid character input";
-        if (!(/\w{2}\s\d{3}-\d{3}|\w{2}\s\d{5,6}|\w{2}\s\d{3}\s\d{3}/).test(setConvert())) return "Invalid Registratin Number";
+        if (!(/\w{2}\s\d{3}-\d{3}$|\w{2}\s\d{5,6}$|\w{2}\s\d{3}\s\d{3}$/).test(setConvert())) return "Invalid Registratin Number";
         return validatedInput = setConvert();
     }
     const getValidation = () => setValidation();

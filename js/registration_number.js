@@ -125,7 +125,7 @@ clearBtn.addEventListener("click", () => {
         plateList.removeChild(plateList.firstChild)
     }
     //clear localStorage
-    localStorage.clear();
+    localStorage.removeItem("registrationNumbers");
     //remove clear button
     clearBtn.style.display = "none";
     //Display msg when list is empty
