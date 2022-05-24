@@ -102,7 +102,7 @@ theClearButtonTemplate();
 //clear registration numbers
 clearBtnContainer.addEventListener("click", () => {
     HandlebarsTemplate(theRegistry.getResetList());
-    localStorage.clear();
+    localStorage.removeItem("registry");
     theClearButtonTemplate();
 });
 
